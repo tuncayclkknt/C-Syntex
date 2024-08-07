@@ -34,6 +34,7 @@ namespace ConsoleApp1
 
 
 
+
             /* Short cuts
              * 
              * cw = Console.WriteLine()
