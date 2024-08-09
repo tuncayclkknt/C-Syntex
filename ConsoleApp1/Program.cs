@@ -34,7 +34,6 @@ namespace ConsoleApp1
 
 
 
-
             /* Short cuts
              * 
              * cw = Console.WriteLine()
@@ -43,6 +42,74 @@ namespace ConsoleApp1
 
             Console.ReadKey();
             //just see the terminal
+        }
+
+        private static void moreDimentionalArrays()
+        {
+            double[,] matris = new double[,] {
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 } };
+
+            double sum = 0;
+
+            for (int i = 0; i < matris.GetLength(0); i++)
+            {
+
+                for (int j = 0; j < matris.GetLength(1); j++)
+                {
+
+                    if (i == j)
+                        matris[i, j] = -1;
+
+                    if (matris[i, j] % 2 == 0)
+                        matris[i, j] = 0;
+
+                    Console.Write($"{matris[i, j],5}");
+
+                    sum += matris[i, j];
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"\nSum: {sum}");
+        }
+
+        private static void arraysAndforeach()
+        {
+            //lists
+            int[] numbers = new int[3];
+
+            numbers[0] = 3;
+            numbers[1] = 5;
+            numbers[2] = 7;
+
+            /*
+             * int[] numbers = new int[] {3, 5, 7};
+             * int[] numbers = {3, 5, 7};
+             */
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.WriteLine($"Numbers[{i}] =" +
+                    $" {numbers[i]}");
+            }
+
+            Console.Write("Write a number to assign elements of array: ");
+            var value = Convert.ToInt32(Console.ReadLine());
+
+            int[] numbers2 = new int[value];
+            var r = new Random();
+
+            for (int i = 0; i < numbers2.Length; i++)
+                numbers2[i] = r.Next(1, 100);
+
+
+            foreach (int n in numbers2)
+            {
+                Console.WriteLine($"Numbers: {n,5}\t" +
+                    $" Square of them: {n * n,5}");
+            }
         }
 
         private static void forExample()
