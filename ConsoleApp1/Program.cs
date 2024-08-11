@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ConsoleApp1
 {
@@ -31,17 +34,157 @@ namespace ConsoleApp1
             var y = x * 2;
             // var - örtülü değişken
             //var uses to make equal the type of 'y' with the other side of the equality.
+            
+            Console.WriteLine("{0}, {1}", x, y);
+            change(ref x,ref y);
+            Console.WriteLine("{0}, {1}", x, y);
+            /* ref usage
+             *  when i write this line like this; change(x,y)
+             * i will see this result: 3, 6 \n 6, 3 \n 3,6
+             *  because x and y not change in our stack, we just declare another
+             * variables and we change them,
+             *  But i write change(ref x,ref y); ,
+             * Its(ref) means that the argument referance our x and y
+             * and directly change their values on our stack.
+             * To use ref, make the methot argument like "ref int a", "ref int b" ,
+             *  alsa make the paramethers like "ref a, ref b" .
+             */
 
+            //double sum = sumOfArray(15.6, 20,23.6,100);
+            //Console.WriteLine("{0,5:0.##}",sum);
+            //// :0.##} means coming 2 digits after comma.
+
+            Console.WriteLine("{0,5:0.##}",sell(15.5));
+            Console.WriteLine("{0,5:0.##}",sell(15.6,.1));
 
 
             /* Short cuts
              * 
              * cw = Console.WriteLine()
              * forr = for (int i = length - 1; i >= 0; i--)
+             *\/// make summary 
              */
 
             Console.ReadKey();
             //just see the terminal
+        }
+
+        //----------- Method Examples ----------------------
+
+        static void change(ref int a, ref int b)
+        {
+            int temp = a;
+            a = b; 
+            b = temp;
+            Console.WriteLine("{0}, {1}",a,b);
+        }
+
+
+        /// <summary>
+        /// Sell methot
+        /// </summary>
+        /// <param name="price">Total price</param>
+        /// <returns>Total prince with KDV</returns>
+        static double sell(double price)
+        {
+            return price * 1.20;
+        }
+
+        /// <summary>
+        /// Sell methot
+        /// </summary>
+        /// <param name="price">Total price</param>
+        /// <param name="discount">Discount rate</param>
+        /// <returns>Total price with KDV and discount</returns>
+        static double sell(double price, double discount)
+        {
+            return price * (1.0 - discount) * 1.18;
+        }
+
+        public static double sumOfArray(params double[] array)
+        {//params makes the parametres changable.
+            double sum = 0;
+
+            foreach (double x in array)
+                sum += x;
+            return sum;
+        }
+
+        public static void compare(int number1, int number2)
+        {
+            if (number1 < number2)
+                Console.WriteLine($"{number2} is bigger than {number1}.");
+            else if (number1 > number2)
+                Console.WriteLine($"{number1} is bigger than {number2}.");
+            else Console.WriteLine($"They are equal.");
+        }
+        public static int compare2(int A, int B)
+        {
+            return A > B ? A : B;
+        }
+
+        static double square(double number)
+        {
+            return number*number;
+        }
+
+
+        //--------------------------------------------------------------
+
+        private static void lists()
+        {
+            List<int> myList = new List<int>();
+            //var myList = new List<int>();
+            int[] array = new int[] { 10, 20, 30 };
+
+            myList.Add(16);
+            myList.Add(136);
+            myList.Add(36);
+            myList.AddRange(array);
+            myList.AddRange(new int[] { 30, 40, 50 });
+
+            //add an item on the spesific index
+            myList.Insert(3, 0);
+            myList.InsertRange(4, new int[] { 50, 60 });
+
+            //remove 3rd index item
+            myList.RemoveAt(3);
+            myList.RemoveAt(myList.IndexOf(136));
+
+            foreach (int i in myList)
+            {
+                Console.WriteLine($"{i,5} ");
+            }
+        }
+
+        private static void arrayLists()
+        {
+            ArrayList myarraylist = new ArrayList();
+
+            //ArrayList myarraylist = new ArrayList() {10, "Tuncay", 'T', true}
+
+            myarraylist.Add(10);
+            myarraylist.Add("Tuncay");
+            myarraylist.Add('T');
+            myarraylist.Add(true);
+
+            foreach (var i in myarraylist)
+            {
+                Console.Write($"{i} ");
+            }
+
+            int[] numbers3 = new int[] { 22, 12, 25, 56 };
+            myarraylist.AddRange(numbers3);
+            Console.WriteLine();
+            myarraylist.RemoveRange(3, 3);
+            //star with 3rd index and delete the 3 items on the right side
+
+            foreach (var i in myarraylist)
+            {
+                Console.Write($"{i} ");
+            }
+
+            Console.WriteLine($"\n{myarraylist[4]}");
         }
 
         private static void moreDimentionalArrays()
